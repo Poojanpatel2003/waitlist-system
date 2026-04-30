@@ -57,14 +57,14 @@ Create .env file:
     EMAIL_PASS=your_app_password(not normal password)
 
 Run backend:
-    npm run dev
+    -npm run dev
 
 3. Frontend Setup
     cd frontend
     npm install
     npm run dev
 
-🔒 Security Features
+🔒 Security Features:
     Rate limiting (prevents spam requests)
     Environment variables for sensitive data
     Duplicate email validation
