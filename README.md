@@ -64,10 +64,11 @@ Users can submit their details and receive a confirmation email upon successful 
     npm install
     npm run dev
 
-##🔒 Security Features:
+---
+🔒 Security Features:
     Rate limiting (prevents spam requests)
     Environment variables for sensitive data
     Duplicate email validation
-
+---
 👨‍💻 Author
     Poojan Patel
