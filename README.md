@@ -41,33 +41,28 @@ Users can submit their details and receive a confirmation email upon successful 
 
 ⚙️ Setup Instructions
 
-1. Clone the repository
+### 1. Clone the repository
 
-git clone https://github.com/Poojanpatel2003/waitlist-system.git
-cd waitlist-system
+    git clone https://github.com/Poojanpatel2003/waitlist-system.git
+    cd waitlist-system
 
-2. Backend Setup
+## 2. Backend Setup
     cd backend
     npm install
 
-Create .env file:
+## Create .env file:
     PORT=5000
     MONGO_URI=your_mongodb_uri
     EMAIL_USER=your_email
     EMAIL_PASS=your_app_password(not normal password)
 
-Run backend:
+## Run backend:
     npm run dev
 
-3. Frontend Setup
+## 3. Frontend Setup
     cd frontend
     npm install
     npm run dev
-
-🔒 Security Features
-    Rate limiting (prevents spam requests)
-    Environment variables for sensitive data
-    Duplicate email validation
 
 👨‍💻 Author
     Poojan Patel
