@@ -36,7 +36,7 @@ const sendEmail = async (to, name) => {
     `;
 
     await transporter.sendMail({
-      from: `"Truvixoo Team" <${process.env.EMAIL_USER}>`,
+      from: `"Poojan Patel" <${process.env.EMAIL_USER}>`,
       to,
       subject: "🎉 You're on the Waitlist!",
       html: htmlTemplate,
