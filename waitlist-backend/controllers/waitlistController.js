@@ -3,7 +3,6 @@ import sendEmail from "../utils/sendEmail.js";
 
 export const addToWaitlist = async (req, res) => {
   try {
-
     const { name, email, phone, message } = req.body;
 
     if (!name || !email || !message) {
