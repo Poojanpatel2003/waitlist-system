@@ -6,17 +6,21 @@ const sendEmail = async (to, name) => {
     console.log("Starting Email Process...");
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
+  host: "smtp-relay.brevo.com",
 
-      port: Number(process.env.SMTP_PORT),
+  port: 465,
 
-      secure: false,
+  secure: true,
 
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
     // SEND EMAIL
     const info = await transporter.sendMail({
