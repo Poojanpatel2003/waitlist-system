@@ -6,7 +6,11 @@ const sendEmail = async (to, name) => {
     console.log("Starting Email Process...");
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+
+      port: 465,
+
+      secure: true,
 
       auth: {
         user: process.env.EMAIL_USER,
@@ -24,22 +28,8 @@ const sendEmail = async (to, name) => {
       subject: "🎉 You're on the Waitlist!",
 
       html: `
-        <div style="font-family: Arial, sans-serif; padding:20px;">
-          
-          <h2>Hello ${name} 👋</h2>
-
-          <p>
-            Thank you for joining our waitlist 🎉
-          </p>
-
-          <p>
-            We will notify you soon.
-          </p>
-
-          <br/>
-
-          <strong>Team Truvixoo</strong>
-        </div>
+        <h2>Hello ${name} 👋</h2>
+        <p>Thank you for joining our waitlist 🎉</p>
       `,
     });
 
@@ -50,7 +40,7 @@ const sendEmail = async (to, name) => {
 
   } catch (error) {
 
-    console.log("EMAIL ERROR:");
+    console.log("FULL EMAIL ERROR:");
     console.log(error);
 
     return false;

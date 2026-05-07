@@ -3,8 +3,8 @@ import sendEmail from "../utils/sendEmail.js";
 
 export const addToWaitlist = async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
 
+    const { name, email, phone, message } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({
@@ -27,16 +27,8 @@ export const addToWaitlist = async (req, res) => {
       message,
     });
 
-    
-    const emailSent = await sendEmail(email, name);
+    // await sendEmail(email, name);
 
-    if (!emailSent) {
-      return res.status(500).json({
-        message: "Failed to send email",
-      });
-    }
-
-   
     return res.status(201).json({
       message: "Successfully added to waitlist",
       user,
@@ -44,7 +36,7 @@ export const addToWaitlist = async (req, res) => {
 
   } catch (error) {
 
-    console.log("CONTROLLER ERROR:", error.message);
+    console.log(error);
 
     return res.status(500).json({
       message: error.message,
