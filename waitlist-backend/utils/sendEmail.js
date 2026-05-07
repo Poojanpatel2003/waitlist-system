@@ -1,12 +1,11 @@
 import nodemailer from "nodemailer";
 
 const sendEmail = async (to, name) => {
-
   try {
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      port: Number(process.env.SMTP_PORT), // IMPORTANT
       secure: false,
 
       auth: {
@@ -14,6 +13,10 @@ const sendEmail = async (to, name) => {
         pass: process.env.SMTP_PASS,
       },
     });
+
+    // SMTP connection check
+    await transporter.verify();
+    console.log("SMTP Connected");
 
     const htmlTemplate = `
       <div style="font-family: Arial, sans-serif; padding:20px;">
@@ -34,7 +37,7 @@ const sendEmail = async (to, name) => {
       </div>
     `;
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Truvixoo" <${process.env.SMTP_USER}>`,
       to,
       subject: "🎉 You're on the Waitlist!",
@@ -42,11 +45,11 @@ const sendEmail = async (to, name) => {
     });
 
     console.log("Email Sent Successfully");
+    console.log(info);
 
   } catch (error) {
-    console.log(error);
+    console.log("EMAIL ERROR:", error.message);
   }
-
 };
 
 export default sendEmail;

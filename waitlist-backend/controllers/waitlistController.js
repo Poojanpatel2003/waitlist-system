@@ -27,18 +27,19 @@ export const addToWaitlist = async (req, res) => {
       message,
     });
 
- 
+    // SEND EMAIL
+    await sendEmail(email, name);
+
+    console.log("Mail Sent");
+
     res.status(201).json({
       message: "Successfully added to waitlist",
       user,
     });
 
-   
-    sendEmail(email, name)
-      .then(() => console.log("Mail Sent"))
-      .catch((err) => console.log(err));
-
   } catch (error) {
+
+    console.log("CONTROLLER ERROR:", error.message);
 
     return res.status(500).json({
       message: error.message,
