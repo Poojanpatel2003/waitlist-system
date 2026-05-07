@@ -6,25 +6,16 @@ const sendEmail = async (to, name) => {
     console.log("Starting Email Process...");
 
     const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
+      service: "gmail",
 
-  port: 465,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
-  secure: true,
-
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
-    // SEND EMAIL
     const info = await transporter.sendMail({
-      from: `"Truvixoo" <${process.env.SMTP_USER}>`,
+      from: process.env.SMTP_USER,
 
       to,
 
@@ -32,16 +23,11 @@ const sendEmail = async (to, name) => {
 
       html: `
         <div style="font-family: Arial, sans-serif; padding:20px;">
-          
           <h2>Hello ${name} 👋</h2>
 
-          <p>
-            Thank you for joining our waitlist 🎉
-          </p>
+          <p>Thank you for joining our waitlist 🎉</p>
 
-          <p>
-            We will notify you soon.
-          </p>
+          <p>We will notify you soon.</p>
 
           <br/>
 
