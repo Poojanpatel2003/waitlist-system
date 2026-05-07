@@ -27,7 +27,7 @@ export const addToWaitlist = async (req, res) => {
       message,
     });
 
-    // await sendEmail(email, name);
+    await sendEmail(email, name);
 
     return res.status(201).json({
       message: "Successfully added to waitlist",
