@@ -7,28 +7,25 @@ const sendEmail = async (to, name) => {
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
+
       port: Number(process.env.SMTP_PORT),
+
       secure: false,
 
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
     });
 
-    // SMTP CHECK
-    await transporter.verify();
-
-    console.log("SMTP Connected Successfully");
-
+    // SEND EMAIL
     const info = await transporter.sendMail({
       from: `"Truvixoo" <${process.env.SMTP_USER}>`,
+
       to,
+
       subject: "🎉 You're on the Waitlist!",
+
       html: `
         <div style="font-family: Arial, sans-serif; padding:20px;">
           
