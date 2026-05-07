@@ -10,7 +10,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-  origin: "https://waitlist-system-1xtlkkzye-poojans-projects-93986157.vercel.app",
+  origin: "https://waitlist-system-kutwpq6id-poojans-projects-93986157.vercel.appp",
    methods: ["GET", "POST"],
   credentials: true
 }));
