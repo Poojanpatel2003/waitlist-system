@@ -6,12 +6,14 @@ export const addToWaitlist = async (req, res) => {
 
     const { name, email, phone, message } = req.body;
 
+    // CHECK REQUIRED FIELDS
     if (!name || !email || !message) {
       return res.status(400).json({
         message: "All required fields missing",
       });
     }
 
+    // CHECK EXISTING USER
     const existingUser = await Waitlist.findOne({ email });
 
     if (existingUser) {
@@ -20,6 +22,7 @@ export const addToWaitlist = async (req, res) => {
       });
     }
 
+    // CREATE USER
     const user = await Waitlist.create({
       name,
       email,
@@ -27,20 +30,20 @@ export const addToWaitlist = async (req, res) => {
       message,
     });
 
-    // SEND EMAIL
-    await sendEmail(email, name);
-
-    console.log("Mail Sent");
-
+    // SEND RESPONSE FIRST
     res.status(201).json({
-  message: "Successfully added to waitlist",
-  user,
-});
+      message: "Successfully added to waitlist",
+      user,
+    });
 
-// Background email
-sendEmail(email, name)
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+    // SEND EMAIL IN BACKGROUND
+    sendEmail(email, name)
+      .then(() => {
+        console.log("Mail Sent Successfully");
+      })
+      .catch((err) => {
+        console.log("MAIL ERROR:", err.message);
+      });
 
   } catch (error) {
 
