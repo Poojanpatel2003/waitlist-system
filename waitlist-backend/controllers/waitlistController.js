@@ -3,6 +3,7 @@ import sendEmail from "../utils/sendEmail.js";
 
 export const addToWaitlist = async (req, res) => {
   try {
+
     const { name, email, phone, message } = req.body;
 
     if (!name || !email || !message) {
@@ -26,12 +27,20 @@ export const addToWaitlist = async (req, res) => {
       message,
     });
 
-    await sendEmail(email, name);
-
-    return res.status(201).json({
+    // SEND RESPONSE IMMEDIATELY
+    res.status(201).json({
       message: "Successfully added to waitlist",
       user,
     });
+
+    // SEND EMAIL IN BACKGROUND
+    sendEmail(email, name)
+      .then(() => {
+        console.log("EMAIL SENT");
+      })
+      .catch((err) => {
+        console.log("EMAIL ERROR:", err);
+      });
 
   } catch (error) {
 
