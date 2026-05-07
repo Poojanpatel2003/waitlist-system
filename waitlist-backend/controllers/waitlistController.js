@@ -33,9 +33,14 @@ export const addToWaitlist = async (req, res) => {
     console.log("Mail Sent");
 
     res.status(201).json({
-      message: "Successfully added to waitlist",
-      user,
-    });
+  message: "Successfully added to waitlist",
+  user,
+});
+
+// Background email
+sendEmail(email, name)
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
 
   } catch (error) {
 
