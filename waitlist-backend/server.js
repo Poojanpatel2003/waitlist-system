@@ -9,11 +9,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors({
-  origin: "https://waitlist-system-kutwpq6id-poojans-projects-93986157.vercel.appp",
-   methods: ["GET", "POST"],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 const limiter = rateLimit({
