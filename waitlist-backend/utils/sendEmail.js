@@ -1,39 +1,56 @@
 import nodemailer from "nodemailer";
 
 const sendEmail = async (to, name) => {
-  console.log("EMAIL FUNCTION STARTED");
-
-  console.log("EMAIL_USER:", process.env.EMAIL_USER);
-  console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "EXISTS" : "MISSING");
-
   try {
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
-    console.log("TRANSPORT CREATED");
+    const htmlTemplate = `
+      <div style="font-family: Arial, sans-serif; background:#f4f6f8; padding:20px;">
+        
+        <div style="max-width:500px; margin:auto; background:white; border-radius:10px; padding:30px;">
+          
+          <h2>Hello ${name} 👋</h2>
 
-    await transporter.verify();
+          <p style="color:#555; line-height:1.6;">
+            Thank you for joining our waitlist 🎉
+          </p>
 
-    console.log("SMTP VERIFIED");
+          <p style="color:#555; line-height:1.6;">
+            We will notify you soon.
+          </p>
 
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+          <br/>
+
+          <strong>Team Truvixoo</strong>
+        </div>
+      </div>
+    `;
+
+    await transporter.sendMail({
+      from: `"Truvixoo" <${process.env.EMAIL_USER}>`,
       to,
-      subject: "Test Email",
-      text: `Hello ${name}`,
+      subject: "🎉 You're on the Waitlist!",
+      html: htmlTemplate,
     });
 
-    console.log("EMAIL SENT");
-    console.log(info);
+    console.log("Email Sent Successfully");
 
   } catch (error) {
-    console.log("FULL EMAIL ERROR BELOW");
+    console.log("EMAIL ERROR:");
     console.log(error);
   }
 };
