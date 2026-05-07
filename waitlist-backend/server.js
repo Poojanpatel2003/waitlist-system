@@ -9,18 +9,19 @@ dotenv.config();
 
 const app = express();
 
+// DATABASE CONNECT
 connectDB();
 
+// MIDDLEWARES
 app.use(express.json());
 
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true,
   })
 );
 
+// RATE LIMIT
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -28,12 +29,24 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+// ROUTES
 app.use("/api", waitlistRoutes);
 
+// TEST ROUTE
 app.get("/", (req, res) => {
-  res.send("API Running...");
+  res.send("Backend Running Successfully");
 });
 
+// ERROR HANDLER
+app.use((err, req, res, next) => {
+  console.log("SERVER ERROR:", err);
+
+  res.status(500).json({
+    message: "Internal Server Error",
+  });
+});
+
+// SERVER START
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
