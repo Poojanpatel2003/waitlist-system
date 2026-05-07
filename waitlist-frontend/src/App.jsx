@@ -37,7 +37,7 @@ function App() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/waitlist",
+        "https://waitlist-system.onrender.com/api/waitlist",
         form
       );
 
