@@ -14,6 +14,8 @@ const sendEmail = async (to, name) => {
       },
     });
 
+    console.log("Transport Created");
+
     const info = await transporter.sendMail({
       from: process.env.EMAIL_USER,
 
@@ -23,11 +25,16 @@ const sendEmail = async (to, name) => {
 
       html: `
         <div style="font-family: Arial, sans-serif; padding:20px;">
+          
           <h2>Hello ${name} 👋</h2>
 
-          <p>Thank you for joining our waitlist 🎉</p>
+          <p>
+            Thank you for joining our waitlist 🎉
+          </p>
 
-          <p>We will notify you soon.</p>
+          <p>
+            We will notify you soon.
+          </p>
 
           <br/>
 
@@ -44,7 +51,7 @@ const sendEmail = async (to, name) => {
   } catch (error) {
 
     console.log("EMAIL ERROR:");
-    console.log(error.message);
+    console.log(error);
 
     return false;
   }
